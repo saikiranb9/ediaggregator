@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: ediaggregator
+  zipkin:
+    base-url: ${JAEGER_COLLECTOR_URL}
+    service:
+      name: ediaggregator
+    enabled: true 
+  sleuth:
+    opentracing:
+      enabled: true   
+    trace-id128: true
+    sampler:
+      probability: 1.0
+      
+server:
+  port: 9311
+management:
+  security:
+    enabled: false  #disable the spring security on the management endpoints like /env, /refresh etc.
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: info,health,prometheus,env,httptrace,loggers,threaddump,heapdump
+
+logging:
+  level:
+    ROOT: ERROR
+    com.atd.microservices.core.ediaggregator: DEBUG
+
+apigateway:
+  url: '${APIGATEWAY_URL}'
+  
+ediaggregator:
+  fusePath: /edi-grouped-files
+

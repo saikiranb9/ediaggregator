@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ediaggregator    #service name
+server:
+  port: 9311
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always

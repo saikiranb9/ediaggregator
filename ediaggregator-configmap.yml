@@ -1,0 +1,36 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ediaggregator-configmap
+  namespace: edi-platform
+data:
+  #Environment-agnostic configs
+  apigateway.url: http://apigateway:9093
+  jaeger.collector.url: "http://zipkin.monitoring.svc:9411"
+  kafka.security.protocol: SSL
+  kafka.max.request.size: "25000000"  
+  ediaggregator.updateEDIDocProcessedFlagUrl: http://apigateway:9093/edicoredata/edidoc/update/processed/{processedFlag}
+  ediaggregator.getEDIDocsByIdUrl: http://apigateway:9093/edicoredata/edidoc/id
+  ediaggregator.getEdiConfigSeqnceUrl: http://apigateway:9093/ediconfig/sequencenum/{receiverCode}
+  ediaggregator.getEdiConfigByCustomerUrl: http://apigateway:9093/ediconfig/partner/{partner}
+  
+  #Develop
+  dev.kafka.topic.inbound: DEDIAGGREGATION
+  dev.kafka.analytic.topic: DAPIGATEWAYANALYTICS
+  dev.host.name: develop-edi.gcp.atd-us.com
+  dev.kafka.bootstrap.server.url: kafka-dev-2.gcp.atd-us.icd:31090
+  dev.edi.server.value: atd-as2-dev
+  
+  #QA
+  qa.kafka.topic.inbound: QEDIAGGREGATION
+  qa.kafka.analytic.topic: QAPIGATEWAYANALYTICS
+  qa.host.name: r-qa-edi.gcp.atd-us.com
+  qa.kafka.bootstrap.server.url: kafka-dev-2.gcp.atd-us.icd:31090
+  qa.edi.server.value: atd-as2-qa
+  
+  #Production
+  prod.kafka.topic.inbound: EDIAGGREGATION
+  prod.kafka.analytic.topic: APIGATEWAYANALYTICS
+  prod.host.name: prod-edi.gcp.atd-us.com
+  prod.kafka.bootstrap.server.url: kafka-prod-msa-int-2.gcp.atd-us.icd:31090
+  prod.edi.server.value: atd-as2-prod
